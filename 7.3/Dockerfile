@@ -19,6 +19,13 @@ RUN apt-get update \
     # && docker-php-ext-install opcache \
     # PDO
     && docker-php-ext-install pdo_mysql \
+    # Sodium
+    && apt-get install libsodium-dev -y \
+    && docker-php-ext-enable sodium \
+    # Mcrypt
+    && apt-get install -y libmcrypt-dev \
+    && pecl install mcrypt-1.0.1 \
+    && docker-php-ext-enable mcrypt \
     # Misc deps
     && apt-get install -y \
     libmcrypt-dev \
