@@ -1,9 +1,12 @@
 FROM php:7.3
 
-COPY uploadsize.ini /usr/local/etc/php/conf.d
-COPY postsize.ini /usr/local/etc/php/conf.d
-COPY memorylimit.ini /usr/local/etc/php/conf.d
+# COPY uploadsize.ini /usr/local/etc/php/conf.d
+# COPY postsize.ini /usr/local/etc/php/conf.d
+# COPY memorylimit.ini /usr/local/etc/php/conf.d
 # COPY opcache.ini /usr/local/etc/php/conf.d
+
+# Use develop settings
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 RUN apt-get update \
     # GD
