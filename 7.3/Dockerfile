@@ -1,10 +1,5 @@
 FROM php:7.3
 
-# COPY uploadsize.ini /usr/local/etc/php/conf.d
-# COPY postsize.ini /usr/local/etc/php/conf.d
-# COPY memorylimit.ini /usr/local/etc/php/conf.d
-# COPY opcache.ini /usr/local/etc/php/conf.d
-
 # Use develop settings
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
@@ -35,3 +30,6 @@ RUN apt-get update \
 COPY --from=composer:1.9.0 /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN composer global require hirak/prestissimo
+EXPOSE 8080
+COPY start.sh /start.sh
+CMD /start.sh
