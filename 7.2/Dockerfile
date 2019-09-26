@@ -1,4 +1,4 @@
-FROM php:7.3
+FROM php:7.2
 
 # Use develop settings
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
@@ -6,7 +6,7 @@ RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
 
 RUN chmod uga+x /usr/local/bin/install-php-extensions && sync \
-    && install-php-extensions gd \
+    && install-php-extensions gd mcrypt \
     && apt-get update \
     && apt-get install -y git zip unzip \
     && apt autoremove -y
