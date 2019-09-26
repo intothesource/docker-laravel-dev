@@ -26,6 +26,15 @@ RUN apt-get update \
     && apt-get install -y libmcrypt-dev \
     && pecl install mcrypt-1.0.1 \
     && docker-php-ext-enable mcrypt \
+    # GMP
+    && apt-get install -y libgmp-dev re2c libmhash-dev file \
+    && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
+    && docker-php-ext-configure gmp \
+    && docker-php-ext-install gmp \
+    # intl
+    && apt-get install -y zlib1g-dev libicu-dev g++ \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl \
     # Misc deps
     && apt-get install -y \
     libmcrypt-dev \
