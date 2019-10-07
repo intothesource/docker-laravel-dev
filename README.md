@@ -7,29 +7,10 @@ Docker image for Laravel development. Intended to be used with docker-compose.
 `Dockerfile`
 
 ```Dockerfile
-FROM intothesource/laravel-dev AS dev
-WORKDIR /var/www
+FROM intothesource/laravel-dev:7.2 AS dev
 COPY composer.json ./
-RUN mkdir -pv \
-    storage/app/public \
-    storage/clockwork \
-    storage/debugbar \
-    storage/framework/cache \
-    storage/framework/sessions \
-    storage/framework/testing \
-    storage/framework/views \
-    storage/logs \
-    # Install composer deps
-    && composer install \
-    --no-interaction \
-    --prefer-dist \
-    --no-scripts \
-    # --no-dev \
-    --no-autoloader && \
-    rm -rf /root/.composer
+RUN /install_dependencies.sh
 COPY artisan server.php ./
-EXPOSE 8080
-CMD ./start-dev.sh
 ```
 
 `docker-compose.yml`
